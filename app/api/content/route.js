@@ -3,7 +3,14 @@ export async function GET(request) {
   const account = searchParams.get('account');
   const platform = searchParams.get('platform');
 
-  const apiKey = 'apify_api_6RFbzG2fj2xqYHkUnoFmv4fPVhH6p13fnxS1';
+  const apiKey = process.env.APIFY_API_KEY;
+
+  if (!apiKey) {
+    return Response.json(
+      { error: 'API key not configured' },
+      { status: 500 }
+    );
+  }
 
   try {
     let actor = '';
