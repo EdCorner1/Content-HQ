@@ -28,6 +28,7 @@ export default function Dashboard() {
       <main style={styles.main}>
         {activeTab === 'overview' && <OverviewTab />}
         {activeTab === 'daily' && <DailyContentTab />}
+        {activeTab === 'analytics' && <LiveAnalyticsTab />}
         {activeTab === 'delivery' && <DeliveryTab />}
         {activeTab === 'payments' && <PaymentsTab />}
         {activeTab === 'timeline' && <TimelineTab />}
@@ -98,6 +99,7 @@ function Nav({ activeTab, setActiveTab }) {
   const tabs = [
     { id: 'overview', label: 'Overview' },
     { id: 'daily', label: 'Today\'s Content' },
+    { id: 'analytics', label: 'Live Analytics' },
     { id: 'delivery', label: 'Content Delivery' },
     { id: 'payments', label: 'Payments' },
     { id: 'timeline', label: 'Timeline' },
@@ -748,6 +750,194 @@ function ScenarioCard({ label, signups, mrr, annual, highlight }) {
       <div style={styles.scenarioSignups}>{signups}</div>
       <div style={{ ...styles.scenarioMRR, color: highlight ? '#16a34a' : '#2563eb' }}>{mrr}</div>
       <div style={styles.scenarioAnnual}>{annual}</div>
+    </div>
+  );
+}
+
+// ═══════════ LIVE ANALYTICS TAB ═══════════
+function LiveAnalyticsTab() {
+  const [daysBack, setDaysBack] = useState(7);
+  const [loading, setLoading] = useState(true);
+  const [analytics, setAnalytics] = useState({
+    clawbite: { tiktok: null, instagram: null, youtube: null },
+    detris: { tiktok: null, instagram: null, youtube: null }
+  });
+  const [error, setError] = useState('');
+
+  useEffect(() => {
+    fetchAnalytics();
+  }, [daysBack]);
+
+  const fetchAnalytics = async () => {
+    setLoading(true);
+    setError('');
+    try {
+      const accounts = [
+        { client: 'clawbite', handle: 'ed.clawbite', platform: 'tiktok' },
+        { client: 'clawbite', handle: 'definitely.ed', platform: 'instagram' },
+        { client: 'clawbite', handle: 'thisisedcorner', platform: 'youtube' },
+        { client: 'detris', handle: 'Ed.detris', platform: 'tiktok' },
+        { client: 'detris', handle: 'Ed.builds.it', platform: 'instagram' },
+        { client: 'detris', handle: 'thisisedcorner', platform: 'youtube' }
+      ];
+
+      const results = { ...analytics };
+
+      for (const account of accounts) {
+        try {
+          const res = await fetch(`/api/analytics?account=${account.handle}&platform=${account.platform}&days=${daysBack}`);
+          if (res.ok) {
+            const data = await res.json();
+            results[account.client][account.platform] = data;
+          }
+        } catch (err) {
+          console.error(`Error fetching ${account.platform}:`, err);
+        }
+      }
+
+      setAnalytics(results);
+    } catch (err) {
+      setError('Failed to load analytics');
+      console.error(err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  return (
+    <div>
+      <SectionHeading>Live Analytics</SectionHeading>
+
+      <div style={styles.analyticsControls}>
+        <label style={styles.analyticsLabel}>Time Period:</label>
+        <select
+          value={daysBack}
+          onChange={(e) => setDaysBack(Number(e.target.value))}
+          style={styles.analyticsSelect}
+        >
+          <option value={1}>Last 24 hours</option>
+          <option value={7}>Last 7 days</option>
+          <option value={30}>Last 30 days</option>
+          <option value={90}>Last 90 days</option>
+        </select>
+      </div>
+
+      {loading && (
+        <div style={styles.infoCard}>
+          <div style={{ padding: '32px', textAlign: 'center', color: '#64748b' }}>
+            Loading analytics from all accounts...
+          </div>
+        </div>
+      )}
+
+      {error && (
+        <div style={{ ...styles.infoCard, background: '#fef2f2', borderColor: '#fca5a5' }}>
+          <div style={{ padding: '16px', color: '#dc2626' }}>⚠️ {error}</div>
+        </div>
+      )}
+
+      {!loading && !error && (
+        <>
+          <SectionHeading style={{ marginTop: 32 }}>Clawbite</SectionHeading>
+          <div style={styles.analyticsGrid}>
+            <AnalyticsCard
+              platform="TikTok"
+              handle="@ed.clawbite"
+              data={analytics.clawbite.tiktok}
+              color="#dc2626"
+            />
+            <AnalyticsCard
+              platform="Instagram"
+              handle="@definitely.ed"
+              data={analytics.clawbite.instagram}
+              color="#dc2626"
+            />
+            <AnalyticsCard
+              platform="YouTube"
+              handle="@thisisedcorner"
+              data={analytics.clawbite.youtube}
+              color="#dc2626"
+            />
+          </div>
+
+          <SectionHeading style={{ marginTop: 32 }}>Detris</SectionHeading>
+          <div style={styles.analyticsGrid}>
+            <AnalyticsCard
+              platform="TikTok"
+              handle="@Ed.detris"
+              data={analytics.detris.tiktok}
+              color="#64748b"
+            />
+            <AnalyticsCard
+              platform="Instagram"
+              handle="@Ed.builds.it"
+              data={analytics.detris.instagram}
+              color="#64748b"
+            />
+            <AnalyticsCard
+              platform="YouTube"
+              handle="@thisisedcorner"
+              data={analytics.detris.youtube}
+              color="#64748b"
+            />
+          </div>
+
+          <div style={{ textAlign: 'center', marginTop: 32, color: '#94a3b8', fontSize: 13 }}>
+            Last refreshed: {new Date().toLocaleTimeString()} · Auto-updates daily
+          </div>
+        </>
+      )}
+    </div>
+  );
+}
+
+function AnalyticsCard({ platform, handle, data, color }) {
+  if (!data) {
+    return (
+      <div style={styles.analyticsCard}>
+        <div style={{ ...styles.analyticsHead, borderColor: color }}>
+          <div style={{ ...styles.analyticsPlatform, color }}>{platform}</div>
+          <div style={styles.analyticsHandle}>{handle}</div>
+        </div>
+        <div style={styles.analyticsBody}>
+          <div style={{ color: '#94a3b8', fontSize: 13 }}>No data available</div>
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <div style={styles.analyticsCard}>
+      <div style={{ ...styles.analyticsHead, borderColor: color }}>
+        <div style={{ ...styles.analyticsPlatform, color }}>{platform}</div>
+        <div style={styles.analyticsHandle}>{handle}</div>
+      </div>
+      <div style={styles.analyticsBody}>
+        <div style={styles.metricRow}>
+          <span style={styles.metricLabel}>👁 Views</span>
+          <span style={{ ...styles.metricValue, color }}>{data.views?.toLocaleString() || '—'}</span>
+        </div>
+        <div style={styles.metricRow}>
+          <span style={styles.metricLabel}>❤️ Likes</span>
+          <span style={{ ...styles.metricValue, color }}>{data.likes?.toLocaleString() || '—'}</span>
+        </div>
+        <div style={styles.metricRow}>
+          <span style={styles.metricLabel}>💬 Comments</span>
+          <span style={{ ...styles.metricValue, color }}>{data.comments?.toLocaleString() || '—'}</span>
+        </div>
+        {data.engagement && (
+          <div style={styles.metricRow}>
+            <span style={styles.metricLabel}>📊 Engagement</span>
+            <span style={{ ...styles.metricValue, color }}>{data.engagement}%</span>
+          </div>
+        )}
+        {data.posted && (
+          <div style={{ ...styles.metricRow, marginTop: 12, paddingTop: 12, borderTop: '1px solid #e2e8f0' }}>
+            <span style={styles.metricLabel}>Posted</span>
+            <span style={styles.metricValue}>{data.posted}</span>
+          </div>
+        )}
+      </div>
     </div>
   );
 }
@@ -1517,4 +1707,84 @@ const styles = {
     outline: 'none',
     fontFamily: 'inherit',
     width: '100%'
+  }
+
+  // ANALYTICS
+  analyticsControls: {
+    display: 'flex',
+    gap: 16,
+    alignItems: 'center',
+    padding: '20px 24px',
+    background: '#fff',
+    border: '1px solid #e2e8f0',
+    borderRadius: 12,
+    marginBottom: 24
+  },
+  analyticsLabel: {
+    fontSize: 14,
+    fontWeight: 600,
+    color: '#0f172a'
+  },
+  analyticsSelect: {
+    padding: '10px 14px',
+    background: '#f8fafc',
+    border: '1px solid #e2e8f0',
+    borderRadius: 8,
+    fontSize: 14,
+    fontWeight: 500,
+    color: '#0f172a',
+    outline: 'none',
+    fontFamily: 'inherit',
+    cursor: 'pointer'
+  },
+  analyticsGrid: {
+    display: 'grid',
+    gridTemplateColumns: 'repeat(auto-fit, minmax(340px, 1fr))',
+    gap: 16,
+    marginBottom: 16
+  },
+  analyticsCard: {
+    background: '#fff',
+    border: '1px solid #e2e8f0',
+    borderRadius: 12,
+    overflow: 'hidden',
+    boxShadow: '0 1px 2px rgba(0,0,0,0.02)'
+  },
+  analyticsHead: {
+    padding: '16px 20px',
+    background: '#f8fafc',
+    borderLeft: '4px solid',
+    display: 'flex',
+    flexDirection: 'column',
+    gap: 4
+  },
+  analyticsPlatform: {
+    fontSize: 16,
+    fontWeight: 800,
+    letterSpacing: '-0.01em'
+  },
+  analyticsHandle: {
+    fontSize: 12,
+    color: '#64748b',
+    fontWeight: 500
+  },
+  analyticsBody: {
+    padding: '20px'
+  },
+  metricRow: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    paddingBottom: 12,
+    borderBottom: '1px solid #f1f5f9'
+  },
+  metricLabel: {
+    fontSize: 13,
+    color: '#64748b',
+    fontWeight: 500
+  },
+  metricValue: {
+    fontSize: 18,
+    fontWeight: 800,
+    letterSpacing: '-0.02em'
   }
