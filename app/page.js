@@ -32,6 +32,7 @@ export default function Dashboard() {
         {activeTab === 'payments' && <PaymentsTab />}
         {activeTab === 'timeline' && <TimelineTab />}
         {activeTab === 'mrr' && <MRRTab />}
+        {activeTab === 'settings' && <SettingsTab />}
       </main>
       <Footer />
     </div>
@@ -100,7 +101,8 @@ function Nav({ activeTab, setActiveTab }) {
     { id: 'delivery', label: 'Content Delivery' },
     { id: 'payments', label: 'Payments' },
     { id: 'timeline', label: 'Timeline' },
-    { id: 'mrr', label: 'MRR Upside' }
+    { id: 'mrr', label: 'MRR Upside' },
+    { id: 'settings', label: 'Settings' }
   ];
   return (
     <nav style={styles.nav}>
@@ -746,6 +748,67 @@ function ScenarioCard({ label, signups, mrr, annual, highlight }) {
       <div style={styles.scenarioSignups}>{signups}</div>
       <div style={{ ...styles.scenarioMRR, color: highlight ? '#16a34a' : '#2563eb' }}>{mrr}</div>
       <div style={styles.scenarioAnnual}>{annual}</div>
+    </div>
+  );
+}
+
+// ═══════════ SETTINGS TAB ═══════════
+function SettingsTab() {
+  const [profile, setProfile] = useState({
+    name: 'Ed Corner',
+    email: 'ed@edcorner.co.uk',
+    notes: 'UGC Creator & AI Agent Tester'
+  });
+  const [saved, setSaved] = useState(false);
+
+  const handleSave = () => {
+    localStorage.setItem('dashboardProfile', JSON.stringify(profile));
+    setSaved(true);
+    setTimeout(() => setSaved(false), 2000);
+  };
+
+  return (
+    <div>
+      <SectionHeading>Profile Settings</SectionHeading>
+      <div style={styles.settingsCard}>
+        <div style={styles.settingsField}>
+          <label style={styles.settingsLabel}>Full Name</label>
+          <input
+            type="text"
+            value={profile.name}
+            onChange={(e) => setProfile({...profile, name: e.target.value})}
+            style={styles.settingsInput}
+          />
+        </div>
+        <div style={styles.settingsField}>
+          <label style={styles.settingsLabel}>Email</label>
+          <input
+            type="email"
+            value={profile.email}
+            onChange={(e) => setProfile({...profile, email: e.target.value})}
+            style={styles.settingsInput}
+          />
+        </div>
+        <div style={styles.settingsField}>
+          <label style={styles.settingsLabel}>Notes / Bio</label>
+          <textarea
+            value={profile.notes}
+            onChange={(e) => setProfile({...profile, notes: e.target.value})}
+            style={{...styles.settingsInput, minHeight: 100, resize: 'vertical'}}
+          />
+        </div>
+        <button
+          onClick={handleSave}
+          style={{
+            ...styles.loginBtn,
+            width: '100%',
+            marginTop: 16,
+            background: saved ? '#16a34a' : '#dc2626'
+          }}
+        >
+          {saved ? '✓ Settings Saved' : 'Save Settings'}
+        </button>
+      </div>
     </div>
   );
 }
@@ -1420,3 +1483,38 @@ const styles = {
     fontWeight: 500
   }
 };
+
+  // SETTINGS
+  settingsCard: {
+    background: '#fff',
+    border: '1px solid #e2e8f0',
+    borderRadius: 12,
+    padding: '28px 32px',
+    boxShadow: '0 1px 2px rgba(0,0,0,0.02)',
+    maxWidth: 520
+  },
+  settingsField: {
+    display: 'flex',
+    flexDirection: 'column',
+    gap: 8,
+    marginBottom: 20
+  },
+  settingsLabel: {
+    fontSize: 12,
+    fontWeight: 600,
+    letterSpacing: '0.05em',
+    textTransform: 'uppercase',
+    color: '#64748b'
+  },
+  settingsInput: {
+    padding: '12px 16px',
+    background: '#f8fafc',
+    border: '1px solid #e2e8f0',
+    borderRadius: 8,
+    fontSize: 15,
+    fontWeight: 500,
+    color: '#0f172a',
+    outline: 'none',
+    fontFamily: 'inherit',
+    width: '100%'
+  }
