@@ -1671,8 +1671,7 @@ const styles = {
     color: '#94a3b8',
     textAlign: 'center',
     fontWeight: 500
-  }
-};
+  },
 
   // SETTINGS
   settingsCard: {
@@ -1707,7 +1706,7 @@ const styles = {
     outline: 'none',
     fontFamily: 'inherit',
     width: '100%'
-  }
+  },
 
   // ANALYTICS
   analyticsControls: {
@@ -1788,3 +1787,5 @@ const styles = {
     fontWeight: 800,
     letterSpacing: '-0.02em'
   }
+};
+
