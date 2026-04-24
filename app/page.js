@@ -1,5 +1,5 @@
 'use client';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 export default function Dashboard() {
   const [password, setPassword] = useState('');
@@ -27,6 +27,7 @@ export default function Dashboard() {
       <Nav activeTab={activeTab} setActiveTab={setActiveTab} />
       <main style={styles.main}>
         {activeTab === 'overview' && <OverviewTab />}
+        {activeTab === 'daily' && <DailyContentTab />}
         {activeTab === 'delivery' && <DeliveryTab />}
         {activeTab === 'payments' && <PaymentsTab />}
         {activeTab === 'timeline' && <TimelineTab />}
@@ -95,6 +96,7 @@ function Header() {
 function Nav({ activeTab, setActiveTab }) {
   const tabs = [
     { id: 'overview', label: 'Overview' },
+    { id: 'daily', label: 'Today\'s Content' },
     { id: 'delivery', label: 'Content Delivery' },
     { id: 'payments', label: 'Payments' },
     { id: 'timeline', label: 'Timeline' },
@@ -115,6 +117,137 @@ function Nav({ activeTab, setActiveTab }) {
         </button>
       ))}
     </nav>
+  );
+}
+
+// ═══════════ DAILY CONTENT TAB ═══════════
+function DailyContentTab() {
+  const [clawbiteData, setClawbiteData] = useState(null);
+  const [detrisData, setDetrisData] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState('');
+
+  useEffect(() => {
+    fetchContent();
+  }, []);
+
+  const fetchContent = async () => {
+    setLoading(true);
+    setError('');
+    try {
+      // Fetch Clawbite content
+      const clawbiteRes = await fetch('/api/content?account=ed.clawbite&platform=tiktok');
+      const clawbite = clawbiteRes.ok ? await clawbiteRes.json() : null;
+      setClawbiteData(clawbite);
+
+      // Fetch Detris content
+      const detrisRes = await fetch('/api/content?account=Ed.detris&platform=tiktok');
+      const detris = detrisRes.ok ? await detrisRes.json() : null;
+      setDetrisData(detris);
+    } catch (err) {
+      setError('Failed to load content. Check API connection.');
+      console.error(err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  return (
+    <div>
+      <SectionHeading>Today's Content</SectionHeading>
+      
+      {loading && (
+        <div style={styles.infoCard}>
+          <div style={{ padding: '32px', textAlign: 'center', color: '#64748b' }}>
+            Loading today's content from social accounts...
+          </div>
+        </div>
+      )}
+
+      {error && (
+        <div style={{ ...styles.infoCard, background: '#fef2f2', borderColor: '#fca5a5' }}>
+          <div style={{ padding: '16px', color: '#dc2626' }}>⚠️ {error}</div>
+        </div>
+      )}
+
+      {!loading && !error && (
+        <>
+          <div style={styles.clientGrid}>
+            <ContentCard
+              name="Clawbite"
+              color="#dc2626"
+              bgLight="#fef2f2"
+              data={clawbiteData}
+            />
+            <ContentCard
+              name="Detris"
+              color="#64748b"
+              bgLight="#f8fafc"
+              data={detrisData}
+            />
+          </div>
+
+          <div style={{ textAlign: 'center', marginTop: 24, color: '#94a3b8', fontSize: 13 }}>
+            Last updated: {new Date().toLocaleTimeString()} · Auto-refreshes every 30 minutes
+          </div>
+        </>
+      )}
+    </div>
+  );
+}
+
+function ContentCard({ name, color, bgLight, data }) {
+  if (!data) {
+    return (
+      <div style={styles.clientCard}>
+        <div style={{ ...styles.clientHead, background: bgLight }}>
+          <div style={{ ...styles.clientName, color }}>{name}</div>
+        </div>
+        <div style={styles.clientBody}>
+          <div style={{ color: '#94a3b8', fontSize: 13 }}>No content available yet</div>
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <div style={styles.clientCard}>
+      <div style={{ ...styles.clientHead, background: bgLight }}>
+        <div style={{ ...styles.clientName, color }}>{name}</div>
+      </div>
+      <div style={styles.clientBody}>
+        <div style={{ marginBottom: 16 }}>
+          <div style={styles.progName}>Latest TikTok Video</div>
+          <a href={data.url} target="_blank" rel="noopener noreferrer" style={{
+            color: '#2563eb',
+            textDecoration: 'none',
+            fontSize: 14,
+            fontWeight: 600,
+            display: 'inline-flex',
+            alignItems: 'center',
+            gap: 4
+          }}>
+            View on TikTok →
+          </a>
+        </div>
+        <div style={{ ...styles.infoRow, borderBottom: 'none' }}>
+          <span style={styles.infoLabel}>Views</span>
+          <span style={{ ...styles.infoValue, color }}>{data.views?.toLocaleString() || '—'}</span>
+        </div>
+        <div style={{ ...styles.infoRow, borderBottom: 'none' }}>
+          <span style={styles.infoLabel}>Likes</span>
+          <span style={{ ...styles.infoValue, color }}>{data.likes?.toLocaleString() || '—'}</span>
+        </div>
+        <div style={{ ...styles.infoRow, borderBottom: 'none' }}>
+          <span style={styles.infoLabel}>Comments</span>
+          <span style={{ ...styles.infoValue, color }}>{data.comments?.toLocaleString() || '—'}</span>
+        </div>
+        <div style={{ ...styles.infoRow, borderBottom: 'none' }}>
+          <span style={styles.infoLabel}>Posted</span>
+          <span style={styles.infoValue}>{data.timestamp || '—'}</span>
+        </div>
+      </div>
+    </div>
   );
 }
 
