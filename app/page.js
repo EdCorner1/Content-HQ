@@ -120,6 +120,127 @@ function Nav({ activeTab, setActiveTab }) {
   );
 }
 
+// ═══════════ TODAY'S SCRIPTS ═══════════
+function TodayScripts() {
+  const scripts = [
+    {
+      client: 'Clawbite',
+      post: '#19',
+      hook: '"I used to spend my entire Monday morning just figuring out what I was supposed to be doing. Clawbite fixed that in four days."',
+      script: 'So I\'m a digital nomad in Las Palmas, running a content business across multiple clients. And the biggest drain on my time wasn\'t the work — it was the admin around the work. Scheduling, prioritising, figuring out what was urgent and what could wait. It was chaos. Then I started using Clawbite as my AI calendar and workflow agent. And I want to show you something. [Show screen — Clawbite dashboard] This is my week, laid out automatically. It\'s already prioritised my client deadlines, blocked focus time, and flagged three things I would have completely forgotten. I didn\'t set any of this up this morning. Clawbite did it overnight. This is what it looks like when your calendar actually works for you instead of against you.',
+      cta: '"If your mornings feel like chaos, link in bio — Clawbite changed mine. Follow for the daily breakdown of how it\'s running my entire business."',
+      duration: '45–60 sec',
+      color: '#dc2626'
+    },
+    {
+      client: 'Clawbite',
+      post: '#20',
+      hook: '"What if you could clone your brain and just let it manage your schedule? That\'s basically what Clawbite is — and I\'m not even joking."',
+      script: 'Okay so hear me out. I\'ve got multiple clients, a YouTube channel, a newsletter, a product I\'m building — and until recently my task management was a mess of sticky notes and vibes. [Pause. Look at camera.] Vibes. That was my system. Then Clawbite came in. It\'s an AI agent that actually learns how you work. It knows which clients are high priority, it knows when I do my best creative work — mornings, for me — and it protects that time. [Show screen] Right here, you can see it\'s blocked my 9 to 11 slot every day as deep work. No meetings allowed in there. It did that based on how I\'d been working, not because I told it to. That\'s the thing — it doesn\'t need constant instructions. It just figures it out.',
+      cta: '"Drop a comment — what\'s the most chaotic part of your work week? Because Clawbite probably has a fix for it. And follow — I\'m documenting this whole experiment daily."',
+      duration: '50–65 sec',
+      color: '#dc2626'
+    },
+    {
+      client: 'Clawbite',
+      post: '#21 ✓',
+      hook: '"I just got an hour back in my day and I didn\'t have to do anything to get it. Clawbite found the dead time in my schedule and eliminated it."',
+      script: 'So one thing I didn\'t expect when I started using Clawbite was this — it doesn\'t just organise what\'s already there. It actively finds inefficiencies. It spotted that I had three separate admin tasks I was doing at different times of day that could all be batched into one 30-minute slot. [Show screen] It moved them. It rescheduled them. It freed up an hour that I was wasting on context switching. And context switching is one of those silent productivity killers nobody talks about. Every time you jump between tasks, your brain needs time to refocus. Clawbite eliminated that problem without me asking it to. I now have a full extra hour every single day. That\'s five hours a week. Twenty hours a month. Just from one AI agent making smarter decisions about my time than I was.',
+      cta: '"Link in bio if you want to try Clawbite. And follow — I\'m handing it more control every week and it keeps surprising me."',
+      duration: '55–70 sec',
+      color: '#dc2626'
+    },
+    {
+      client: 'Detris',
+      post: '#13',
+      hook: '"I woke up this morning to 11 new leads in my inbox. I didn\'t send a single message yesterday. My AI agent did it while I slept."',
+      script: 'This is Detris. It\'s an AI agent that handles my lead generation completely autonomously. And when I first heard about this I was sceptical — because lead gen is relationship building, right? It needs to feel human. How is an AI going to do that? [Pause] But here\'s the thing. Detris doesn\'t spam. It doesn\'t send generic copy-paste pitches. It researches the brand, understands their content needs, and sends a personalised outreach that reads like I wrote it. [Show screen — Detris dashboard or inbox] These 11 leads came in overnight. Look at this one — it mentions a specific campaign the brand ran, their content style, their upcoming product. That\'s not a template. That\'s real research. My pipeline is growing while I sleep. I still can\'t quite believe it.',
+      cta: '"Link in bio for Detris — if you\'re a creator trying to land brand deals, this is the cheat code. Follow for the daily numbers."',
+      duration: '55–70 sec',
+      color: '#64748b'
+    },
+    {
+      client: 'Detris',
+      post: '#14',
+      hook: '"Most UGC creators spend 10 hours a week on outreach. I spend zero. Let me show you what I use instead."',
+      script: 'If you\'re a UGC creator you know the grind. You make the content, you edit it, you deliver it — and then somewhere in between you\'re supposed to be pitching new clients. Cold emails, DMs, portfolio links — it\'s exhausting. And most people are doing it wrong, sending the same generic message to a hundred brands and getting ignored. Detris changed this for me completely. It handles all of my outreach. It finds brands actively looking for UGC creators — in my niche, at my price point — and sends personalised pitches on my behalf. [Show Detris dashboard or lead list] This week alone: 34 outreach messages sent, 8 opened, 3 replies, 1 call booked. I didn\'t write a single one. What I did do was film great content for clients. That\'s the swap — I focus purely on the creative work while Detris handles the business development side.',
+      cta: '"Want to stop doing cold outreach and start getting clients on autopilot? Link in bio. And follow — I\'m sharing the exact numbers every single day."',
+      duration: '60–75 sec',
+      color: '#64748b'
+    },
+    {
+      client: 'Detris',
+      post: '#15',
+      hook: '"I asked my AI agent to write a cold pitch for a brand deal. Then I rewrote it myself. Then I compared them. The AI won. I\'m not even a little embarrassed."',
+      script: 'I want to be honest about something. I\'ve been doing UGC for a while. I know how to write a pitch. So when I started using Detris I thought — fine, it\'ll save me time, but I\'ll probably write better outreach than it does. So I tested it. Same brand, my pitch vs Detris\'s pitch. [Show both or read them] Mine was fine. Professional. Solid. Detris\'s version mentioned a specific campaign the brand had run three months ago. It referenced their UGC style. It opened with a question about their next product launch. It felt like someone had done their homework. Because they had — Detris had researched them and I hadn\'t made the time. That\'s the gap. I know how to write. Detris knows how to research. Together? A different level entirely.',
+      cta: '"Detris is in the bio — go check it out. And if you\'re a creator trying to level up your outreach, follow because this series is for you."',
+      duration: '55–70 sec',
+      color: '#64748b'
+    }
+  ];
+
+  return (
+    <div style={styles.scriptGrid}>
+      {scripts.map((s, i) => (
+        <ScriptCardDisplay key={i} script={s} />
+      ))}
+    </div>
+  );
+}
+
+function ScriptCardDisplay({ script }) {
+  const [copied, setCopied] = useState(false);
+
+  const copyToClipboard = () => {
+    const full = `HOOK:\n${script.hook}\n\nSCRIPT:\n${script.script}\n\nCTA:\n${script.cta}`;
+    navigator.clipboard.writeText(full);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
+  };
+
+  return (
+    <div style={styles.clientCard}>
+      <div style={{ ...styles.clientHead, background: script.color === '#dc2626' ? '#fef2f2' : '#f8fafc' }}>
+        <div style={{ ...styles.clientName, color: script.color }}>
+          {script.client} — {script.post}
+        </div>
+        <div style={{ fontSize: 11, color: '#64748b', fontWeight: 500 }}>{script.duration}</div>
+      </div>
+      <div style={styles.clientBody}>
+        <div style={{ marginBottom: 14 }}>
+          <div style={styles.progName}>Hook</div>
+          <div style={{ fontSize: 14, fontWeight: 600, color: '#0f172a', lineHeight: 1.6 }}>
+            {script.hook}
+          </div>
+        </div>
+        <div style={{ marginBottom: 14 }}>
+          <div style={styles.progName}>Script</div>
+          <div style={{ fontSize: 13, color: '#475569', lineHeight: 1.6 }}>
+            {script.script}
+          </div>
+        </div>
+        <div style={{ marginBottom: 14 }}>
+          <div style={styles.progName}>CTA</div>
+          <div style={{ fontSize: 13, color: '#475569', lineHeight: 1.6 }}>
+            {script.cta}
+          </div>
+        </div>
+        <button
+          onClick={copyToClipboard}
+          style={{
+            ...styles.loginBtn,
+            width: '100%',
+            marginTop: 12,
+            background: copied ? '#16a34a' : script.color
+          }}
+        >
+          {copied ? '✓ Copied' : 'Copy Full Script'}
+        </button>
+      </div>
+    </div>
+  );
+}
+
 // ═══════════ DAILY CONTENT TAB ═══════════
 function DailyContentTab() {
   const [clawbiteData, setClawbiteData] = useState(null);
@@ -154,7 +275,10 @@ function DailyContentTab() {
 
   return (
     <div>
-      <SectionHeading>Today's Content</SectionHeading>
+      <SectionHeading>Today's Scripts (Fri 24 Apr)</SectionHeading>
+      <TodayScripts />
+
+      <SectionHeading style={{ marginTop: 48 }}>Today's Content</SectionHeading>
       
       {loading && (
         <div style={styles.infoCard}>
