@@ -21,7 +21,7 @@ export async function GET(request) {
       actor = 'clockworks/tiktok-scraper';
       input = {
         username: account,
-        amount: 10, // Get last 10 videos
+        amount: 20,
         maxAttempts: 1,
         resultsType: 'list'
       };
@@ -30,17 +30,16 @@ export async function GET(request) {
       input = {
         username: account,
         resultsType: 'posts',
-        postsAmount: 10
+        postsAmount: 20
       };
     } else if (platform === 'youtube') {
       actor = 'streamers/youtube-shorts-scraper';
       input = {
         channelHandle: account,
-        maxResults: 10
+        maxResults: 20
       };
     }
 
-    // Call Apify to start actor
     const runResponse = await fetch(`https://api.apify.com/v2/acts/${actor}/runs`, {
       method: 'POST',
       headers: {
@@ -57,7 +56,6 @@ export async function GET(request) {
     const runData = await runResponse.json();
     const runId = runData.data.id;
 
-    // Poll for completion
     let results = [];
     let attempts = 0;
     const maxAttempts = 30;
@@ -89,10 +87,12 @@ export async function GET(request) {
 
     if (!results || results.length === 0) {
       return Response.json({
-        views: 0,
-        likes: 0,
-        comments: 0,
-        posted: 'No data'
+        videos: [],
+        stats: {
+          views: 0,
+          likes: 0,
+          comments: 0
+        }
       });
     }
 
@@ -112,7 +112,10 @@ export async function GET(request) {
       return itemDate >= cutoffDate;
     });
 
-    // Aggregate metrics from filtered posts
+    // Get top 9 videos
+    const topVideos = filtered.slice(0, 9);
+
+    // Aggregate stats
     let totalViews = 0;
     let totalLikes = 0;
     let totalComments = 0;
@@ -132,31 +135,19 @@ export async function GET(request) {
       }
     });
 
-    // Calculate engagement rate
     const engagementRate = totalViews > 0 
       ? ((totalLikes + totalComments) / totalViews * 100).toFixed(1)
       : 0;
 
-    // Get latest post date
-    const latestPost = filtered[0];
-    let postedDate = 'N/A';
-    if (latestPost) {
-      if (platform === 'tiktok') {
-        postedDate = new Date(latestPost.createTime * 1000).toLocaleDateString();
-      } else if (platform === 'instagram') {
-        postedDate = new Date(latestPost.timestamp).toLocaleDateString();
-      } else if (platform === 'youtube') {
-        postedDate = latestPost.uploadDate || 'N/A';
-      }
-    }
-
     return Response.json({
-      views: totalViews,
-      likes: totalLikes,
-      comments: totalComments,
-      engagement: engagementRate,
-      posted: postedDate,
-      postsInRange: filtered.length
+      videos: topVideos,
+      stats: {
+        views: totalViews,
+        likes: totalLikes,
+        comments: totalComments,
+        engagement: engagementRate,
+        postsInRange: filtered.length
+      }
     });
 
   } catch (error) {

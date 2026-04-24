@@ -773,12 +773,12 @@ function LiveAnalyticsTab() {
     setError('');
     try {
       const accounts = [
-        { client: 'clawbite', handle: 'ed.clawbite', platform: 'tiktok' },
-        { client: 'clawbite', handle: 'definitely.ed', platform: 'instagram' },
-        { client: 'clawbite', handle: 'thisisedcorner', platform: 'youtube' },
-        { client: 'detris', handle: 'Ed.detris', platform: 'tiktok' },
-        { client: 'detris', handle: 'Ed.builds.it', platform: 'instagram' },
-        { client: 'detris', handle: 'thisisedcorner', platform: 'youtube' }
+        { client: 'clawbite', handle: 'ed.clawbite', platform: 'tiktok', key: 'tiktokVideos' },
+        { client: 'clawbite', handle: 'definitely.ed', platform: 'instagram', key: 'instagramVideos' },
+        { client: 'clawbite', handle: 'thisisedcorner', platform: 'youtube', key: 'youtubeVideos' },
+        { client: 'detris', handle: 'Ed.detris', platform: 'tiktok', key: 'tiktokVideos' },
+        { client: 'detris', handle: 'Ed.builds.it', platform: 'instagram', key: 'instagramVideos' },
+        { client: 'detris', handle: 'thisisedcorner', platform: 'youtube', key: 'youtubeVideos' }
       ];
 
       const results = { ...analytics };
@@ -788,7 +788,10 @@ function LiveAnalyticsTab() {
           const res = await fetch(`/api/analytics?account=${account.handle}&platform=${account.platform}&days=${daysBack}`);
           if (res.ok) {
             const data = await res.json();
-            results[account.client][account.platform] = data;
+            if (!results[account.client]) {
+              results[account.client] = {};
+            }
+            results[account.client][account.key] = data.videos || [];
           }
         } catch (err) {
           console.error(`Error fetching ${account.platform}:`, err);
@@ -825,7 +828,7 @@ function LiveAnalyticsTab() {
       {loading && (
         <div style={styles.infoCard}>
           <div style={{ padding: '32px', textAlign: 'center', color: '#64748b' }}>
-            Loading analytics from all accounts...
+            Loading analytics and videos from all accounts...
           </div>
         </div>
       )}
@@ -839,47 +842,37 @@ function LiveAnalyticsTab() {
       {!loading && !error && (
         <>
           <SectionHeading style={{ marginTop: 32 }}>Clawbite</SectionHeading>
-          <div style={styles.analyticsGrid}>
-            <AnalyticsCard
-              platform="TikTok"
-              handle="@ed.clawbite"
-              data={analytics.clawbite.tiktok}
-              color="#dc2626"
-            />
-            <AnalyticsCard
-              platform="Instagram"
-              handle="@definitely.ed"
-              data={analytics.clawbite.instagram}
-              color="#dc2626"
-            />
-            <AnalyticsCard
-              platform="YouTube"
-              handle="@thisisedcorner"
-              data={analytics.clawbite.youtube}
-              color="#dc2626"
-            />
+          
+          <div style={{ marginBottom: 40 }}>
+            <h3 style={{ fontSize: 14, fontWeight: 700, color: '#0f172a', marginBottom: 16 }}>TikTok</h3>
+            <VideoGrid platform="tiktok" videos={analytics.clawbite.tiktokVideos || []} />
           </div>
 
-          <SectionHeading style={{ marginTop: 32 }}>Detris</SectionHeading>
-          <div style={styles.analyticsGrid}>
-            <AnalyticsCard
-              platform="TikTok"
-              handle="@Ed.detris"
-              data={analytics.detris.tiktok}
-              color="#64748b"
-            />
-            <AnalyticsCard
-              platform="Instagram"
-              handle="@Ed.builds.it"
-              data={analytics.detris.instagram}
-              color="#64748b"
-            />
-            <AnalyticsCard
-              platform="YouTube"
-              handle="@thisisedcorner"
-              data={analytics.detris.youtube}
-              color="#64748b"
-            />
+          <div style={{ marginBottom: 40 }}>
+            <h3 style={{ fontSize: 14, fontWeight: 700, color: '#0f172a', marginBottom: 16 }}>Instagram</h3>
+            <VideoGrid platform="instagram" videos={analytics.clawbite.instagramVideos || []} />
+          </div>
+
+          <div style={{ marginBottom: 40 }}>
+            <h3 style={{ fontSize: 14, fontWeight: 700, color: '#0f172a', marginBottom: 16 }}>YouTube</h3>
+            <VideoGrid platform="youtube" videos={analytics.clawbite.youtubeVideos || []} />
+          </div>
+
+          <SectionHeading style={{ marginTop: 48 }}>Detris</SectionHeading>
+          
+          <div style={{ marginBottom: 40 }}>
+            <h3 style={{ fontSize: 14, fontWeight: 700, color: '#0f172a', marginBottom: 16 }}>TikTok</h3>
+            <VideoGrid platform="tiktok" videos={analytics.detris.tiktokVideos || []} />
+          </div>
+
+          <div style={{ marginBottom: 40 }}>
+            <h3 style={{ fontSize: 14, fontWeight: 700, color: '#0f172a', marginBottom: 16 }}>Instagram</h3>
+            <VideoGrid platform="instagram" videos={analytics.detris.instagramVideos || []} />
+          </div>
+
+          <div style={{ marginBottom: 40 }}>
+            <h3 style={{ fontSize: 14, fontWeight: 700, color: '#0f172a', marginBottom: 16 }}>YouTube</h3>
+            <VideoGrid platform="youtube" videos={analytics.detris.youtubeVideos || []} />
           </div>
 
           <div style={{ textAlign: 'center', marginTop: 32, color: '#94a3b8', fontSize: 13 }}>
@@ -939,6 +932,79 @@ function AnalyticsCard({ platform, handle, data, color }) {
         )}
       </div>
     </div>
+  );
+}
+
+function VideoGrid({ platform, videos }) {
+  if (!videos || videos.length === 0) {
+    return (
+      <div style={{ ...styles.infoCard, background: '#f8fafc' }}>
+        <div style={{ padding: '20px', color: '#94a3b8', fontSize: 13 }}>No videos found</div>
+      </div>
+    );
+  }
+
+  return (
+    <div style={styles.videoGridContainer}>
+      {videos.slice(0, 9).map((video, i) => (
+        <VideoCard key={i} video={video} platform={platform} />
+      ))}
+    </div>
+  );
+}
+
+function VideoCard({ video, platform }) {
+  if (!video) return null;
+
+  let thumbnailUrl = '';
+  let videoUrl = '';
+  let title = '';
+
+  if (platform === 'tiktok') {
+    thumbnailUrl = video.coverUrl || 'https://via.placeholder.com/300x400?text=TikTok';
+    videoUrl = `https://www.tiktok.com/@${video.authorMeta?.id}/video/${video.id}` || '#';
+    title = video.text?.substring(0, 60) || 'TikTok Video';
+  } else if (platform === 'instagram') {
+    thumbnailUrl = video.displayUrl || 'https://via.placeholder.com/300x300?text=Instagram';
+    videoUrl = `https://www.instagram.com/p/${video.shortCode}/` || '#';
+    title = video.caption?.substring(0, 60) || 'Instagram Post';
+  } else if (platform === 'youtube') {
+    thumbnailUrl = `https://img.youtube.com/vi/${video.videoId}/mqdefault.jpg` || 'https://via.placeholder.com/300x200?text=YouTube';
+    videoUrl = video.url || '#';
+    title = video.title?.substring(0, 60) || 'YouTube Video';
+  }
+
+  const views = video.playCount || video.viewCount || 0;
+  const likes = video.diggCount || video.likesCount || video.likeCount || 0;
+  const comments = video.commentCount || video.commentsCount || 0;
+
+  return (
+    <a href={videoUrl} target="_blank" rel="noopener noreferrer" style={{ textDecoration: 'none' }}>
+      <div style={styles.videoCard}>
+        <div style={styles.videoThumbnail}>
+          <img
+            src={thumbnailUrl}
+            alt={title}
+            style={{
+              width: '100%',
+              height: '100%',
+              objectFit: 'cover'
+            }}
+            onError={(e) => {
+              e.target.src = 'https://via.placeholder.com/300x300?text=Video';
+            }}
+          />
+        </div>
+        <div style={styles.videoInfo}>
+          <div style={styles.videoTitle}>{title}</div>
+          <div style={styles.videoStats}>
+            <span style={styles.videoStat}>👁 {views.toLocaleString()}</span>
+            <span style={styles.videoStat}>❤️ {likes.toLocaleString()}</span>
+            <span style={styles.videoStat}>💬 {comments.toLocaleString()}</span>
+          </div>
+        </div>
+      </div>
+    </a>
   );
 }
 
@@ -1786,6 +1852,60 @@ const styles = {
     fontSize: 18,
     fontWeight: 800,
     letterSpacing: '-0.02em'
+  },
+
+  // VIDEO GRID
+  videoGridContainer: {
+    display: 'grid',
+    gridTemplateColumns: 'repeat(auto-fill, minmax(200px, 1fr))',
+    gap: 16,
+    marginBottom: 16
+  },
+  videoCard: {
+    background: '#fff',
+    border: '1px solid #e2e8f0',
+    borderRadius: 12,
+    overflow: 'hidden',
+    boxShadow: '0 1px 2px rgba(0,0,0,0.02)',
+    transition: 'all 0.2s',
+    cursor: 'pointer',
+    ':hover': {
+      borderColor: '#dc2626',
+      boxShadow: '0 4px 12px rgba(0,0,0,0.08)'
+    }
+  },
+  videoThumbnail: {
+    width: '100%',
+    paddingBottom: '100%',
+    position: 'relative',
+    overflow: 'hidden',
+    background: '#f8fafc'
+  },
+  videoInfo: {
+    padding: 12,
+    display: 'flex',
+    flexDirection: 'column',
+    gap: 8
+  },
+  videoTitle: {
+    fontSize: 12,
+    fontWeight: 600,
+    color: '#0f172a',
+    lineHeight: 1.4,
+    display: '-webkit-box',
+    WebkitLineClamp: 2,
+    WebkitBoxOrient: 'vertical',
+    overflow: 'hidden'
+  },
+  videoStats: {
+    display: 'flex',
+    gap: 8,
+    fontSize: 11,
+    color: '#64748b',
+    flexWrap: 'wrap'
+  },
+  videoStat: {
+    fontWeight: 500
   }
 };
 
