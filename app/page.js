@@ -129,56 +129,56 @@ function TodayScripts() {
   const scripts = [
     {
       client: 'Clawbite',
-      post: '#19',
-      hook: '"I used to spend my entire Monday morning just figuring out what I was supposed to be doing. Clawbite fixed that in four days."',
-      script: 'So I\'m a digital nomad in Las Palmas, running a content business across multiple clients. And the biggest drain on my time wasn\'t the work — it was the admin around the work. Scheduling, prioritising, figuring out what was urgent and what could wait. It was chaos. Then I started using Clawbite as my AI calendar and workflow agent. And I want to show you something. [Show screen — Clawbite dashboard] This is my week, laid out automatically. It\'s already prioritised my client deadlines, blocked focus time, and flagged three things I would have completely forgotten. I didn\'t set any of this up this morning. Clawbite did it overnight. This is what it looks like when your calendar actually works for you instead of against you.',
-      cta: '"If your mornings feel like chaos, link in bio — Clawbite changed mine. Follow for the daily breakdown of how it\'s running my entire business."',
+      post: '#1',
+      hook: 'I gave my AI agent $100 to build me a business. Then I asked him to surprise me with a fun feature while I was out getting shopping.',
+      script: 'Full autonomy. He could do whatever he wanted with that. I didn\'t give him any more context than that — just the budget, the brief, and told him to get on with it. Went and did my shopping. Came back, opened my laptop, and he\'d built something I genuinely wasn\'t expecting. I\'m not going to describe it because it\'ll make more sense if you just see it. [Shows results] Like — I don\'t know what I expected but it wasn\'t that. That\'s kind of where I\'m at with AI agents right now. You give them a bit of room and they do things you wouldn\'t have thought to ask for.',
+      cta: 'If you want to test out having your own AI agent, link in bio.',
       duration: '45–60 sec',
       color: '#dc2626'
     },
     {
       client: 'Clawbite',
-      post: '#20',
-      hook: '"What if you could clone your brain and just let it manage your schedule? That\'s basically what Clawbite is — and I\'m not even joking."',
-      script: 'Okay so hear me out. I\'ve got multiple clients, a YouTube channel, a newsletter, a product I\'m building — and until recently my task management was a mess of sticky notes and vibes. [Pause. Look at camera.] Vibes. That was my system. Then Clawbite came in. It\'s an AI agent that actually learns how you work. It knows which clients are high priority, it knows when I do my best creative work — mornings, for me — and it protects that time. [Show screen] Right here, you can see it\'s blocked my 9 to 11 slot every day as deep work. No meetings allowed in there. It did that based on how I\'d been working, not because I told it to. That\'s the thing — it doesn\'t need constant instructions. It just figures it out.',
-      cta: '"Drop a comment — what\'s the most chaotic part of your work week? Because Clawbite probably has a fix for it. And follow — I\'m documenting this whole experiment daily."',
-      duration: '50–65 sec',
+      post: '#2',
+      hook: 'Is anybody else living in constant fear of hitting their session limit with Claude?',
+      script: 'Like genuinely. That little "you\'re approaching your limit" message does something to me. Maybe it\'s a good thing — maybe we should go outside, touch some grass, live our lives. But sometimes I don\'t want to do that. So instead I use different models and get roughly 90% of the same performance while spending about four times less. I do this with Minimax 2.7, Kimi 2.6 and a few others — all through Clawbite. It also has GPT Codex 5.3 which honestly I find better than Claude Code anyway. Sorry Claude. All the tokens are managed and included in the monthly fee. But if you want to test it for free first, you can.',
+      cta: 'Link in bio. And follow for more tips on all things AI.',
+      duration: '50–60 sec',
       color: '#dc2626'
     },
     {
       client: 'Clawbite',
-      post: '#21 ✓',
-      hook: '"I just got an hour back in my day and I didn\'t have to do anything to get it. Clawbite found the dead time in my schedule and eliminated it."',
-      script: 'So one thing I didn\'t expect when I started using Clawbite was this — it doesn\'t just organise what\'s already there. It actively finds inefficiencies. It spotted that I had three separate admin tasks I was doing at different times of day that could all be batched into one 30-minute slot. [Show screen] It moved them. It rescheduled them. It freed up an hour that I was wasting on context switching. And context switching is one of those silent productivity killers nobody talks about. Every time you jump between tasks, your brain needs time to refocus. Clawbite eliminated that problem without me asking it to. I now have a full extra hour every single day. That\'s five hours a week. Twenty hours a month. Just from one AI agent making smarter decisions about my time than I was.',
-      cta: '"Link in bio if you want to try Clawbite. And follow — I\'m handing it more control every week and it keeps surprising me."',
-      duration: '55–70 sec',
+      post: '#3',
+      hook: 'I woke up this morning and my AI agent had already done three things I forgot to do yesterday.',
+      script: 'Didn\'t ask it to. Didn\'t schedule it. It just went. Broken link on my site that\'s probably been there for weeks — flagged it, fixed it, sent me a summary. Drafted two content ideas based on what\'s trending in my niche right now. Reminded me about a follow up I\'d completely forgotten about. All of that was in my morning update with my coffee. It\'s a bit like having a business partner who actually does stuff. Not one who just talks about doing stuff. Just quietly gets on with it.',
+      cta: 'Follow — I post what it gets up to every day. Some mornings are more surprising than others.',
+      duration: '45–55 sec',
       color: '#dc2626'
     },
     {
       client: 'Detris',
-      post: '#13',
-      hook: '"I woke up this morning to 11 new leads in my inbox. I didn\'t send a single message yesterday. My AI agent did it while I slept."',
-      script: 'This is Detris. It\'s an AI agent that handles my lead generation completely autonomously. And when I first heard about this I was sceptical — because lead gen is relationship building, right? It needs to feel human. How is an AI going to do that? [Pause] But here\'s the thing. Detris doesn\'t spam. It doesn\'t send generic copy-paste pitches. It researches the brand, understands their content needs, and sends a personalised outreach that reads like I wrote it. [Show screen — Detris dashboard or inbox] These 11 leads came in overnight. Look at this one — it mentions a specific campaign the brand ran, their content style, their upcoming product. That\'s not a template. That\'s real research. My pipeline is growing while I sleep. I still can\'t quite believe it.',
-      cta: '"Link in bio for Detris — if you\'re a creator trying to land brand deals, this is the cheat code. Follow for the daily numbers."',
-      duration: '55–70 sec',
+      post: '#1',
+      hook: 'The hardest part of running a UGC business isn\'t the content. It\'s finding clients while you\'re busy making the content.',
+      script: 'Like genuinely — when you\'re deep in a filming week, outreach is the first thing that falls off. You know you should be pitching, the pipeline needs feeding, but you\'re already at capacity just delivering for the clients you\'ve got. That\'s kind of where I was. And the honest answer is I wasn\'t doing enough of it. Not because I didn\'t know I should — just because there\'s only so many hours. So I started letting Detris run the outreach in the background. Finding brands, reaching out, keeping things moving while I\'m just doing the actual work. Came home yesterday to leads I didn\'t generate. That\'s a weird feeling the first few times. Now it just feels normal.',
+      cta: 'Follow — tracking every lead it finds. The numbers week on week are getting interesting.',
+      duration: '55–65 sec',
       color: '#64748b'
     },
     {
       client: 'Detris',
-      post: '#14',
-      hook: '"Most UGC creators spend 10 hours a week on outreach. I spend zero. Let me show you what I use instead."',
-      script: 'If you\'re a UGC creator you know the grind. You make the content, you edit it, you deliver it — and then somewhere in between you\'re supposed to be pitching new clients. Cold emails, DMs, portfolio links — it\'s exhausting. And most people are doing it wrong, sending the same generic message to a hundred brands and getting ignored. Detris changed this for me completely. It handles all of my outreach. It finds brands actively looking for UGC creators — in my niche, at my price point — and sends personalised pitches on my behalf. [Show Detris dashboard or lead list] This week alone: 34 outreach messages sent, 8 opened, 3 replies, 1 call booked. I didn\'t write a single one. What I did do was film great content for clients. That\'s the swap — I focus purely on the creative work while Detris handles the business development side.',
-      cta: '"Want to stop doing cold outreach and start getting clients on autopilot? Link in bio. And follow — I\'m sharing the exact numbers every single day."',
-      duration: '60–75 sec',
+      post: '#2',
+      hook: 'I have a list of dream clients. I never pitch them. Detris doesn\'t have that problem.',
+      script: 'And that\'s not false modesty — I just would look at them and think, not yet. Too big. Come back when you\'re further along. That thing you do where you talk yourself out of stuff before you\'ve even tried. Detris doesn\'t do that. It found them, researched them, sent something specific and relevant. Got a reply this week. Not a yes — just a reply. But a conversation with a brand I\'d basically written off. The human version of me is still waiting for the right moment. The AI version already started the conversation. That gap is kind of embarrassing when you say it out loud.',
+      cta: 'Follow — sharing every reply, every result, all of it.',
+      duration: '50–60 sec',
       color: '#64748b'
     },
     {
       client: 'Detris',
-      post: '#15',
-      hook: '"I asked my AI agent to write a cold pitch for a brand deal. Then I rewrote it myself. Then I compared them. The AI won. I\'m not even a little embarrassed."',
-      script: 'I want to be honest about something. I\'ve been doing UGC for a while. I know how to write a pitch. So when I started using Detris I thought — fine, it\'ll save me time, but I\'ll probably write better outreach than it does. So I tested it. Same brand, my pitch vs Detris\'s pitch. [Show both or read them] Mine was fine. Professional. Solid. Detris\'s version mentioned a specific campaign the brand had run three months ago. It referenced their UGC style. It opened with a question about their next product launch. It felt like someone had done their homework. Because they had — Detris had researched them and I hadn\'t made the time. That\'s the gap. I know how to write. Detris knows how to research. Together? A different level entirely.',
-      cta: '"Detris is in the bio — go check it out. And if you\'re a creator trying to level up your outreach, follow because this series is for you."',
-      duration: '55–70 sec',
+      post: '#3',
+      hook: 'The hardest part of being a UGC creator isn\'t making the content. It\'s everything else.',
+      script: 'Because you can\'t do both at full capacity. When you\'re filming, outreach drops. When you\'re pitching, quality drops. There\'s this constant juggle and most creators just pick one and hope for the best. I was picking content and hoping the clients would figure themselves out. They don\'t. So I started using Detris to run the outreach side in the background. Quietly, consistently, every day — finding brands, making contact, keeping things moving. What that actually looks like after a few weeks is a pipeline that didn\'t exist before. Not because anything dramatic happened. Just because something kept going when I would have stopped.',
+      cta: 'Follow — made this for creators who are great at the work and terrible at the business side. That was me.',
+      duration: '55–65 sec',
       color: '#64748b'
     }
   ];
@@ -279,7 +279,7 @@ function DailyContentTab() {
 
   return (
     <div>
-      <SectionHeading>Today's Scripts (Fri 24 Apr)</SectionHeading>
+      <SectionHeading>Today's Scripts (Sat 25 Apr)</SectionHeading>
       <TodayScripts />
 
       <SectionHeading style={{ marginTop: 48 }}>Today's Content</SectionHeading>
