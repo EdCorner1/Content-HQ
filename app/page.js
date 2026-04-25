@@ -157,28 +157,28 @@ function TodayScripts() {
     {
       client: 'Detris',
       post: '#1',
-      hook: 'The hardest part of running a UGC business isn\'t the content. It\'s finding clients while you\'re busy making the content.',
-      script: 'Like genuinely — when you\'re deep in a filming week, outreach is the first thing that falls off. You know you should be pitching, the pipeline needs feeding, but you\'re already at capacity just delivering for the clients you\'ve got. That\'s kind of where I was. And the honest answer is I wasn\'t doing enough of it. Not because I didn\'t know I should — just because there\'s only so many hours. So I started letting Detris run the outreach in the background. Finding brands, reaching out, keeping things moving while I\'m just doing the actual work. Came home yesterday to leads I didn\'t generate. That\'s a weird feeling the first few times. Now it just feels normal.',
-      cta: 'Follow — tracking every lead it finds. The numbers week on week are getting interesting.',
-      duration: '55–65 sec',
+      hook: 'One of the hardest things about being a solo founder is that I just want to keep shipping features and building cool stuff.',
+      script: 'The problem with that is that I am often so busy building features, planning stuff out and telling my agents what to do that I don\'t give myself enough time to think about outreach. Which was getting pretty annoying but now I\'m using Detris AI, I\'m able to find leads while I am sleeping, or out on the beach or something else. And it will do all my outreach for me including drafting all responses. It just asks for my approval because I like to be the human in the loop, always. I mean, the responses are not perfect, but AI pretending to be a human never is. But it does provide me with structure and thinking which saves me a LOT of time when I am sending out a few hundred messages at a time. So all I have to do is tell the agent to make a few tweaks here and there, double check it just to make sure we\'re not writing AI slop, then let it do the work.',
+      cta: 'If you want to test it out, there\'s a link in my bio.',
+      duration: '60–75 sec',
       color: '#64748b'
     },
     {
       client: 'Detris',
       post: '#2',
-      hook: 'I have a list of dream clients. I never pitch them. Detris doesn\'t have that problem.',
-      script: 'And that\'s not false modesty — I just would look at them and think, not yet. Too big. Come back when you\'re further along. That thing you do where you talk yourself out of stuff before you\'ve even tried. Detris doesn\'t do that. It found them, researched them, sent something specific and relevant. Got a reply this week. Not a yes — just a reply. But a conversation with a brand I\'d basically written off. The human version of me is still waiting for the right moment. The AI version already started the conversation. That gap is kind of embarrassing when you say it out loud.',
-      cta: 'Follow — sharing every reply, every result, all of it.',
-      duration: '50–60 sec',
+      hook: 'I sent about 300 outreach messages last week. I wrote maybe 12 of them.',
+      script: 'The other 288 — Detris drafted them. I went through, made tweaks, checked nothing sounded like AI slop, approved them. That\'s genuinely it. Because here\'s the thing — AI pretending to be a human is never perfect. I know that, you know that. But what it does give you is structure, a starting point, and a first draft that\'s like 80% of the way there. And when you\'re sending volume, that 80% saves you an insane amount of time. I\'m not outsourcing my voice. I\'m just not starting from scratch 300 times. Big difference.',
+      cta: 'Link in bio if you want to try it. Follow — sharing the numbers every week.',
+      duration: '45–55 sec',
       color: '#64748b'
     },
     {
       client: 'Detris',
       post: '#3',
-      hook: 'The hardest part of being a UGC creator isn\'t making the content. It\'s everything else.',
-      script: 'Because you can\'t do both at full capacity. When you\'re filming, outreach drops. When you\'re pitching, quality drops. There\'s this constant juggle and most creators just pick one and hope for the best. I was picking content and hoping the clients would figure themselves out. They don\'t. So I started using Detris to run the outreach side in the background. Quietly, consistently, every day — finding brands, making contact, keeping things moving. What that actually looks like after a few weeks is a pipeline that didn\'t exist before. Not because anything dramatic happened. Just because something kept going when I would have stopped.',
-      cta: 'Follow — made this for creators who are great at the work and terrible at the business side. That was me.',
-      duration: '55–65 sec',
+      hook: 'My AI agent found me a lead yesterday while I was on the beach.',
+      script: 'Not joking. I was out, phone in pocket, not thinking about work. Detris was running. By the time I got back it had found three relevant brands, drafted outreach for all of them, and was waiting for my approval to send. I went through them, tweaked a couple of lines — because I always want to be the human in the loop — hit send. That\'s a thing that would have just not happened on a beach day six months ago. The pipeline would have sat there. Now it doesn\'t. That\'s kind of the whole pitch honestly.',
+      cta: 'Link in bio. Free to test.',
+      duration: '40–50 sec',
       color: '#64748b'
     }
   ];
